@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Roboto;
+    background-color: rgb(80, 241, 93);
+    position: relative;
+}
+
+#display{
+    font-size: 300px;
+    font-weight: 500;
+    color: white;
+}
+
+button{
+    background-color: rgb(241, 80, 80);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 80px;
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+#log{
+    font-family: Roboto;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}

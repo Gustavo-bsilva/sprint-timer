@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <title>Sprints</title>
+</head>
+<body id="body">
+    <span id="display">00:00</span>
+    <button id="button">Sprint</button>
+    <script>
+
+        const red = "rgb(241, 80, 80)";
+        const green = "rgb(80, 241, 93)";
+
+        const body = document.getElementById("body");
+
+        const display = document.getElementById("display");
+        const button = document.getElementById("button");
+
+        var isOnSprint = false;
+        var interval = 0;
+
+        function startTimer(duration, display) {
+            if(interval == 0){
+                var timer = duration, minutes, seconds;
+                interval = setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                    display.textContent = minutes + ":" + seconds;
+                    if (--timer < 0) {
+                        clearInterval(interval);
+                        interval = 0;
+                    }
+                }, 1000);
+            }
+            else{
+                console.log("Timer já está rodando!");
+            }
+        }
+
+        button.onclick = () => {
+            if(isOnSprint){
+                if(interval){
+                    clearInterval(interval);
+                    interval = 0;
+                }
+                timerLogger("Pausou! Descansando...");
+                startTimer(20 * 60, display);
+                button.textContent = "Sprint";
+                button.style = `background-color: ${red}`;
+                body.style = `background-color: ${green}`;
+                isOnSprint = false;
+            }
+            else{
+                if(interval){
+                    clearInterval(interval);
+                    interval = 0;
+                }
+                timerLogger("O sprint começou!");
+                startTimer(60 * 60, display);
+                button.textContent = "Pausa";
+                button.style = `background-color: ${green}`;
+                body.style = `background-color: ${red}`;
+                isOnSprint = true;
+            }
+        }
+
+        function timerLogger(message){
+            var log = document.createElement("span");
+            document.getElementById("body").appendChild(log);
+            log.setAttribute("id", "log");
+            log.textContent = message;
+            setTimeout(() => {
+                log.remove();
+            }, 3000);
+        }
+
+        
+    </script>
+</body>
+</html>
