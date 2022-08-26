@@ -13,7 +13,11 @@
 </head>
 <body id="body">
     <span id="display">00:00</span>
-    <button id="button">Sprint</button>
+    <div id="buttons">
+        <button id="sprint">Sprint</button>
+        <button id="min15">15 min</button>
+        <button id="min20">20 min</button>
+    </div>
     <script>
 
         const red = "rgb(241, 80, 80)";
@@ -22,10 +26,15 @@
         const body = document.getElementById("body");
 
         const display = document.getElementById("display");
-        const button = document.getElementById("button");
+        const sprint = document.getElementById("sprint");
+        const min15 = document.getElementById("min15");
+        const min20 = document.getElementById("min20");
 
         var isOnSprint = false;
         var interval = 0;
+
+        const sirene = new Audio('sirene.mp3');
+        const trompete = new Audio('trompete.mp3');
 
         function startTimer(duration, display) {
             if(interval == 0){
@@ -47,32 +56,50 @@
             }
         }
 
-        button.onclick = () => {
-            if(isOnSprint){
-                if(interval){
-                    clearInterval(interval);
-                    interval = 0;
-                }
-                timerLogger("Pausou! Descansando...");
-                startTimer(20 * 60, display);
-                button.textContent = "Sprint";
-                button.style = `background-color: ${red}`;
-                body.style = `background-color: ${green}`;
-                isOnSprint = false;
+        sprint.onclick = () => {
+            if(interval){
+                clearInterval(interval);
+                interval = 0;
             }
-            else{
-                if(interval){
-                    clearInterval(interval);
-                    interval = 0;
-                }
-                timerLogger("O sprint começou!");
-                startTimer(60 * 60, display);
-                button.textContent = "Pausa";
-                button.style = `background-color: ${green}`;
-                body.style = `background-color: ${red}`;
-                isOnSprint = true;
-            }
+            timerLogger("O sprint começou!");
+            startTimer(60 * 60, display);
+            body.style = `background-color: ${red}`;
+            sprint.style = `background-color: ${green}`;
+            min15.style = `background-color: ${green}`;
+            min20 .style = `background-color: ${green}`;
+            isOnSprint = true;
+            sirene.play();
         }
+
+        min15.onclick = () => {
+            if(interval){
+                clearInterval(interval);
+                interval = 0;
+            }
+            timerLogger("Pausou! Descansando...");
+            startTimer(15 * 60, display);
+            body.style = `background-color: ${green}`;
+            sprint.style = `background-color: ${red}`;
+            min15.style = `background-color: ${red}`;
+            min20 .style = `background-color: ${red}`;
+            isOnSprint = false;
+            trompete.play();
+        }
+
+        min20.onclick = () => {
+            if(interval){
+                clearInterval(interval);
+                interval = 0;
+            }
+            timerLogger("Pausou! Descansando...");
+            startTimer(20 * 60, display);
+            body.style = `background-color: ${green}`;
+            sprint.style = `background-color: ${red}`;
+            min15.style = `background-color: ${red}`;
+            min20 .style = `background-color: ${red}`;
+            isOnSprint = false;
+            trompete.play();
+        }         
 
         function timerLogger(message){
             var log = document.createElement("span");
@@ -83,7 +110,6 @@
                 log.remove();
             }, 3000);
         }
-
         
     </script>
 </body>

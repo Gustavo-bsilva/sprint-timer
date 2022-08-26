@@ -22,7 +22,11 @@ body{
     color: white;
 }
 
-button{
+#buttons{
+    display: flex;
+}
+
+#sprint, #min15, #min20{
     background-color: rgb(241, 80, 80);
     color: white;
     border: none;
@@ -35,6 +39,10 @@ button{
     font-family: Roboto;
     font-weight: 500;
     font-size: 30px;
+}
+
+#min15{
+    margin: 0 20px;
 }
 
 #log{
